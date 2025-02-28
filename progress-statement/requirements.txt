@@ -1,0 +1,5 @@
+matplotlib
+norgatedata
+pandas
+plotly
+reportlab
