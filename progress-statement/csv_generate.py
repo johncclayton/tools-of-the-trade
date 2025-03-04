@@ -21,17 +21,19 @@ class TradeDetailsCSVGenerator:
             "PriceOut",
             "FeesOut",
 
-            "ProfitLoss"
+            "ProfitLoss",
             "Strategy",
             "IsRealized"
         ]
 
     @staticmethod
     def get_data_row(trade):
-        return [
+        date_out = "" if trade.DateOut == "0001-01-01 00:00:00" else trade.DateOut
+
+        row = [
             str(trade.Side),
             trade.Symbol,
-            trade.Shares,
+            str(trade.Shares),
 
             trade.DateIn,
             f"{trade.QtyIn}",
@@ -40,7 +42,7 @@ class TradeDetailsCSVGenerator:
 
             trade.Currency,
 
-            trade.DateOut,
+            date_out,
             f"{trade.QtyOut}",
             f"{trade.PriceOut}",
             f"{trade.FeesOut}",
@@ -50,3 +52,4 @@ class TradeDetailsCSVGenerator:
 
             str(trade.is_realized())
         ]
+        return row

@@ -9,7 +9,7 @@ from csv_generate import TradeDetailsCSVGenerator
 app = Flask(__name__)
 
 
-def calculate_profit_loss() -> ProfitLossData | None:
+def read_trade_csv_list() -> ProfitLossData | None:
     config = get_config()
     input_dir = config.get('paths', 'input_dir', fallback='.')
     filename = os.path.join(input_dir, 'OrderClerkTrades.csv')
@@ -81,7 +81,7 @@ def calculate_profit_loss() -> ProfitLossData | None:
 
 @app.route('/profit_loss_data.csv')
 def serve_profit_loss_data():
-    profit_loss_data = calculate_profit_loss()
+    profit_loss_data = read_trade_csv_list()
     if profit_loss_data is None:
         return "No data available", 404
 
@@ -89,7 +89,7 @@ def serve_profit_loss_data():
         header = TradeDetailsCSVGenerator.get_header_row()
         yield ','.join(header) + '\n'
         for trade in profit_loss_data.trades:
-            row = TradeDetailsCSVGenerator.get_header_row()
+            row = TradeDetailsCSVGenerator.get_data_row(trade)
             yield ','.join(row) + '\n'
 
     return Response(generate(), mimetype='text/csv')
