@@ -3,3 +3,4 @@ norgatedata
 pandas
 plotly
 reportlab
+flask

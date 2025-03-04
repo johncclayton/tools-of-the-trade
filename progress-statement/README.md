@@ -3,7 +3,7 @@
 Using the trade list output from OrderClerk, this program will generate a progress statement
 for years/months and per strategy.
 
-To calculate % profit, only the capital deployed is used - what you might have had available is irrelevant.  Therefore interest
+To calculate % profit, only the capital deployed is used - what you might have had available is irrelevant.  Therefore, interest
 earned via IBKR is not included in the calculation and must be added separately.
 
 # Configuration

@@ -1,27 +1,27 @@
-from typing import Dict, List, Any
+from typing import Dict, List
+from trade_details import TradeDetails
 
 
-
-def print_realized_trades_table(trades: List[Dict[str, Any]]) -> None:
+def print_realized_trades_table(trades: List[TradeDetails]) -> None:
     """Prints a formatted table of realized trades."""
     table_data: List[List[str]] = [
         ["Symbol", "DateIn", "PriceIn", "SharesIn", "DateOut", "PriceOut", "SharesOut", "FeesIn", "FeesOut",
          "Capital Used", "Profit", "Currency"]]
     for trade in trades:
-        used_capital = (trade['PriceIn'] * trade['SharesIn']) + trade['FeesIn']
+        used_capital = (trade.PriceIn * trade.QtyIn) + trade.FeesIn
         table_data.append([
-            trade['Symbol'],
-            trade['DateIn'],
-            f"{trade['PriceIn']:,.2f}",
-            f"{trade['SharesIn']:,.0f}",
-            trade['DateOut'],
-            f"{trade['PriceOut']:,.2f}",
-            f"{trade['SharesOut']:,.0f}",
-            f"{trade['FeesIn']:,.2f}",
-            f"{trade['FeesOut']:,.2f}",
+            trade.Symbol,
+            trade.DateIn,
+            f"{trade.PriceIn:,.2f}",
+            f"{trade.QtyIn:,.0f}",
+            trade.DateOut,
+            f"{trade.PriceOut:,.2f}",
+            f"{trade.SharesOut:,.0f}",
+            f"{trade.FeesIn:,.2f}",
+            f"{trade.FeesOut:,.2f}",
             f"${used_capital:,.2f}",
-            f"${trade['Profit']:,.2f}",
-            trade['Currency']
+            f"${trade.Profit:,.2f}",
+            trade.Currency
         ])
 
     column_widths: List[int] = [max(len(item[i]) for item in table_data) for i in range(len(table_data[0]))]

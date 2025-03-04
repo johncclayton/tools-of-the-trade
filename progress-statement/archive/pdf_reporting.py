@@ -29,16 +29,16 @@ def generate_pdf_report(grouped_data, output_filename='TradeProgressReport.pdf')
         story.append(Paragraph("Realized Profit/Loss:", modern_style))
 
         realized_table_data = [
-            ["Symbol", "DateIn", "PriceIn", "SharesIn", "DateOut", "PriceOut",
-             "SharesOut", "FeesIn", "FeesOut", "Profit", "Currency"]
+            ["Symbol", "DateIn", "PriceIn", "QtyIn", "DateOut", "PriceOut",
+             "QtyOut", "FeesIn", "FeesOut", "Profit", "Currency"]
         ]
         for strategy, trades in data["realized"]["trades"].items():
             for trade in trades:
                 realized_table_data.append([
                     trade['Symbol'], trade['DateIn'],
-                    f"{trade['PriceIn']:.2f}", f"{trade['SharesIn']:.0f}",
+                    f"{trade['PriceIn']:.2f}", f"{trade['QtyIn']:.0f}",
                     trade['DateOut'], f"{trade['PriceOut']:.2f}",
-                    f"{trade['SharesOut']:.0f}", f"{trade['FeesIn']:.2f}",
+                    f"{trade['QtyOut']:.0f}", f"{trade['FeesIn']:.2f}",
                     f"{trade['FeesOut']:.2f}", f"${trade['Profit']:.2f}", trade['Currency']
                 ])
 
