@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  grafana:
+    image: serve_orderclerk:production
+    container_name: serve_orderclerk
+    restart: unless-stopped
+    environment:
+      - NORGATE_DATA_HOST=host.docker.internal
+    ports:
+      - "5000:5000"
+    volumes:
+      - type: bind
+        source: C:/Users/johnc/OneDrive - Effective Flow/Trading/RT/Env_LiveTrading/OrderClerk
+        target: /var/lib/orderclerk
+        read_only: true
+      - type: bind
+        source: C:/Users/johnc/OneDrive - Effective Flow/Trading/RT/Env_LiveTrading/Reporting
+        target: /var/lib/output
+        read_only: false
+volumes:
+  grafana_storage: {}
