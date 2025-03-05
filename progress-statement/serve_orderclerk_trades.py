@@ -79,7 +79,7 @@ def read_trade_csv_list() -> ProfitLossData | None:
     return grouped_data
 
 
-@app.route('/profit_loss_data.csv')
+@app.route('/OrderClerkTrades.csv')
 def serve_profit_loss_data():
     profit_loss_data = read_trade_csv_list()
     if profit_loss_data is None:
