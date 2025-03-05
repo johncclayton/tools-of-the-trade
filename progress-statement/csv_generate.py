@@ -21,6 +21,9 @@ class TradeDetailsCSVGenerator:
             "PriceOut",
             "FeesOut",
 
+            "M2MPrice",
+            "UsedCapital",
+
             "ProfitLoss",
             "Strategy",
             "IsRealized"
@@ -47,9 +50,11 @@ class TradeDetailsCSVGenerator:
             f"{trade.PriceOut}",
             f"{trade.FeesOut}",
 
+            f"{trade.M2MPrice}",
+            f"{trade.calculate_used_capital()}",
+
             f"{trade.calculate_profit_loss()}",
             trade.Strategy,
-
             str(trade.is_realized())
         ]
         return row

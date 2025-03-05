@@ -1,10 +1,12 @@
-import csv, os
+import csv
+import os
 
 from flask import Flask, Response
+
 from config import get_config
+from csv_generate import TradeDetailsCSVGenerator
 from price_extraction import get_closing_price_from_norgate
 from trade_details import TradeDetails, ProfitLossData
-from csv_generate import TradeDetailsCSVGenerator
 
 app = Flask(__name__)
 
@@ -45,9 +47,10 @@ def read_trade_csv_list() -> ProfitLossData | None:
                     qty_out: float = float(row['QtyOut']) # zero if no exit
                     price_out: float = float(row['PriceOut'])
                     fees_out: float = float(row['FeesOut'])
+                    m2m_price: float = 0
 
-                    if date_out_str == '0001-01-01 00:00:00':
-                        price_out = get_closing_price_from_norgate(symbol, currency)
+                    if date_out_str == '0001-01-01 00:00:00' and qty_out == 0:
+                        m2m_price = get_closing_price_from_norgate(symbol, currency)
 
                     trade_details = TradeDetails(
                         Side=side,
@@ -61,6 +64,7 @@ def read_trade_csv_list() -> ProfitLossData | None:
                         QtyOut=qty_out,
                         FeesIn=fees_in,
                         FeesOut=fees_out,
+                        M2MPrice=m2m_price,
                         Currency=currency,
                         Strategy=strategy  # Added strategy attribute
                     )
@@ -96,4 +100,4 @@ def serve_profit_loss_data():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=os.environ.get('FLASK_RUN_PORT', 5000), host=os.environ.get('FLASK_RUN_HOST', '127.0.0.1'))
