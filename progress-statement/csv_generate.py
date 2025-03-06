@@ -24,7 +24,9 @@ class TradeDetailsCSVGenerator:
             "M2MPrice",
             "UsedCapital",
 
-            "ProfitLoss",
+            "TotalFees",
+            "GrossProfitLoss",
+            "NetProfitLoss",
             "Strategy",
             "IsRealized"
         ]
@@ -53,7 +55,10 @@ class TradeDetailsCSVGenerator:
             f"{trade.M2MPrice}",
             f"{trade.calculate_used_capital()}",
 
-            f"{trade.calculate_profit_loss()}",
+            f"{trade.calculate_total_fees()}",
+            f"{trade.calculate_gross_profit_loss()}",
+            f"{trade.calculate_net_profit_loss()}",
+
             trade.Strategy,
             str(trade.is_realized())
         ]

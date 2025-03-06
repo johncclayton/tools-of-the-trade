@@ -25,10 +25,18 @@ class TradeDetails:
     def calculate_used_capital(self) -> float:
         return self.Side * self.QtyIn * self.PriceIn
 
-    def calculate_profit_loss(self) -> float:
+    def calculate_total_fees(self) -> float:
+        return self.FeesIn + self.FeesOut
+
+    def calculate_gross_profit_loss(self) -> float:
         if not self.is_realized():
             return 0.0
-        return (self.Side * ((self.QtyOut * self.PriceOut) - (self.QtyIn * self.PriceIn))) - (self.FeesIn + self.FeesOut)
+        return self.Side * ((self.QtyOut * self.PriceOut) - (self.QtyIn * self.PriceIn))
+
+    def calculate_net_profit_loss(self) -> float:
+        if not self.is_realized():
+            return 0.0
+        return self.calculate_gross_profit_loss() - (self.FeesIn + self.FeesOut)
 
 
 @dataclass
