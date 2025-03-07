@@ -1,4 +1,4 @@
-from trade_details import TradeDetails
+from data.trade_details import TradeDetails
 
 
 class TradeDetailsCSVGenerator:

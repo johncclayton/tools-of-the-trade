@@ -1,7 +1,7 @@
 
 import unittest
 from data.trade_details import TradeDetails
-from trade_details_csv import TradeDetailsCSVGenerator
+from outputs.trade_details_csv import TradeDetailsCSVGenerator
 
 
 class TestTradeDetails(unittest.TestCase):
