@@ -19,11 +19,17 @@ class TradeDetails:
     Currency: str
     Strategy: str
 
+    def is_long(self) -> bool:
+        return self.Side == 1
+
+    def is_short(self) -> bool:
+        return self.Side == -1
+
     def is_realized(self) -> bool:
         return self.QtyIn > 0 and self.QtyOut > 0
 
     def calculate_used_capital(self) -> float:
-        return self.Side * self.QtyIn * self.PriceIn
+        return self.QtyIn * self.PriceIn
 
     def calculate_total_fees(self) -> float:
         return self.FeesIn + self.FeesOut

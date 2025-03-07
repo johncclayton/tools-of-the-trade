@@ -41,6 +41,23 @@ class TestTradeDetails(unittest.TestCase):
             Strategy="Long"
         )
 
+        self.short_trade = TradeDetails(
+            Side=-1,
+            Symbol="TSLA",
+            Shares=20,
+            DateIn="2023-01-01",
+            PriceIn=700.0,
+            QtyIn=20,
+            DateOut="2023-01-10",
+            PriceOut=650.0,
+            QtyOut=20,
+            FeesIn=5.0,
+            FeesOut=5.0,
+            M2MPrice=0.0,
+            Currency="USD",
+            Strategy="Short"
+        )
+
     def test_is_realized(self):
         self.assertTrue(self.realized_trade.is_realized())
         self.assertFalse(self.unrealized_trade.is_realized())
@@ -88,6 +105,9 @@ class TestTradeDetails(unittest.TestCase):
         self.assertEqual(header, expected_header)
         self.assertEqual(realized_data_row, expected_realized_data_row)
         self.assertEqual(unrealized_data_row, expected_unrealized_data_row)
+
+    def test_short_trade_capital_used(self):
+        self.assertEqual(self.short_trade.calculate_used_capital(), 14000.0)
 
 
 if __name__ == '__main__':
