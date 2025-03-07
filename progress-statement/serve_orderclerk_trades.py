@@ -4,7 +4,8 @@ import os
 from flask import Flask, Response
 
 from config import get_config
-from csv_generate import TradeDetailsCSVGenerator
+from outputs.trade_details_csv import TradeDetailsCSVGenerator
+from outputs.period_performance_csv import PerformanceCSVGenerator
 from price_extraction import get_closing_price_from_norgate
 from trade_details import TradeDetails, ProfitLossData
 
@@ -83,8 +84,39 @@ def read_trade_csv_list() -> ProfitLossData | None:
     return grouped_data
 
 
+# I would like to see the %age return on Used Capital for a time unit (day/week/month).
+#
+# output:
+# - daily/weekly/monthly/yearly used capital, per strategy as well as corresponding profit/loss and %age return.
+#
+# so that:
+# - I can import this into Excel and create graphs / reports etc to see how my strategies are performing.
+# - I can create a total (all strategy) performance graph, grouped by period.
+# - I can break that down by strategy.
+# - I can do histograms of %age return over time periods, per strategy.
+#
+# actually the time roll up should be a parameter, so that the user can choose daily/weekly/monthly/yearly.
+@app.route('/PeriodPerformance.csv')
+def serve_period_performance_data():
+    profit_loss_data = read_trade_csv_list()
+    if profit_loss_data is None:
+        return "No data available", 404
+
+    # Instantiate PerformanceCSVGenerator with the full trade data
+    performance_gen = PerformanceCSVGenerator(profit_loss_data)
+
+    def generate():
+        header = performance_gen.get_header_row()
+        yield ','.join(header) + '\n'
+        for row in performance_gen.get_data_rows():
+            yield ','.join(row) + '\n'
+
+    return Response(generate(), mimetype='text/csv')
+
+
+# Return the total list of order clerk trades, including additional data - as a CSV file.
 @app.route('/OrderClerkTrades.csv')
-def serve_profit_loss_data():
+def serve_order_clerk_trades_data():
     profit_loss_data = read_trade_csv_list()
     if profit_loss_data is None:
         return "No data available", 404
