@@ -1,9 +1,11 @@
 # Progress
 
-Using the trade list output from OrderClerk, this program will generate a progress statement
-for years/months and per strategy.
+Using the trade list output from OrderClerk, this program will generate embellished CSV 
+files as well as serve them via an HTTP server, for use by excel for example.
 
-To calculate % profit, only the capital deployed is used - what you might have had available is irrelevant.  Therefore, interest
+No data is ever stored - the program is stateless.
+
+To calculate % profit, only the capital deployed is used - what you might have had available is irrelevant.  Interest
 earned via IBKR is not included in the calculation and must be added separately.
 
 # Configuration
