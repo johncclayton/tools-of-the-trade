@@ -15,11 +15,14 @@ if (-Not (Test-Path -Path $DEPLOYMENT_DIR)) {
     New-Item -ItemType Directory -Path $DEPLOYMENT_DIR
 }
 
-# Copy all .py files to the deployment directory
+# Copy all .py files and maintain subdirectory structure
 Get-ChildItem -Path . -Filter *.py -Recurse | ForEach-Object {
-    Copy-Item -Path $_.FullName -Destination $DEPLOYMENT_DIR
+    $destination = Join-Path -Path $DEPLOYMENT_DIR -ChildPath $_.DirectoryName.Substring($PWD.Path.Length)
+    if (-Not (Test-Path -Path $destination)) {
+        New-Item -ItemType Directory -Path $destination
+    }
+    Copy-Item -Path $_.FullName -Destination $destination
 }
 
 Copy-Item -Path config.ini -Destination $DEPLOYMENT_DIR
 Copy-Item -Path start_flask.bat -Destination $DEPLOYMENT_DIR
-
