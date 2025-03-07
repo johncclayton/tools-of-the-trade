@@ -7,7 +7,7 @@ from config import get_config
 from outputs.trade_details_csv import TradeDetailsCSVGenerator
 from outputs.period_performance_csv import PerformanceCSVGenerator
 from price_extraction import get_closing_price_from_norgate
-from trade_details import TradeDetails, ProfitLossData
+from data.trade_details import TradeDetails, ProfitLossData
 
 app = Flask(__name__)
 

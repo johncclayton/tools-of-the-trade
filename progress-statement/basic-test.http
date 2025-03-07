@@ -2,3 +2,5 @@ GET http://localhost:5000/PeriodPerformance.csv
 Accept: text/csv
 
 ###
+GET http://localhost:5000/OrderClerkTrades.csv
+Accept: text/csv
