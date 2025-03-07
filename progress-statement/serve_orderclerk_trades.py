@@ -1,11 +1,11 @@
 import csv
 import os
 
-from flask import Flask, Response
+from flask import Flask, Response, request
 
 from config import get_config
 from outputs.trade_details_csv import TradeDetailsCSVGenerator
-from outputs.period_performance_csv import PerformanceCSVGenerator
+from outputs.period_performance_csv import PerformanceCSVGenerator, PeriodType
 from price_extraction import get_closing_price_from_norgate
 from data.trade_details import TradeDetails, ProfitLossData
 
@@ -102,8 +102,13 @@ def serve_period_performance_data():
     if profit_loss_data is None:
         return "No data available", 404
 
-    # Instantiate PerformanceCSVGenerator with the full trade data
-    performance_gen = PerformanceCSVGenerator(profit_loss_data)
+    period_type_str = request.args.get('period', 'Month')
+    try:
+        period_type = PeriodType[period_type_str.upper()]
+    except KeyError:
+        return f"Invalid period type: {period_type_str}", 400
+
+    performance_gen = PerformanceCSVGenerator(profit_loss_data, period_type)
 
     def generate():
         header = performance_gen.get_header_row()
