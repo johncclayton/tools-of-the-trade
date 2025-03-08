@@ -40,12 +40,12 @@ def read_trade_csv_list() -> ProfitLossData | None:
                     side: int = int(row['Side'])
                     shares: float = float(row['Shares'])
                     date_in_str: str = row['DateIn']
-                    qty_in: float = float(row['QtyIn']) # zero if not filled.
+                    qty_in: float = float(row['QtyIn'])  # zero if not filled.
                     price_in: float = float(row['PriceIn'])
                     fees_in: float = float(row['FeesIn'])
                     currency: str = row['Currency']
                     date_out_str: str = row['DateOut']
-                    qty_out: float = float(row['QtyOut']) # zero if no exit
+                    qty_out: float = float(row['QtyOut'])  # zero if no exit
                     price_out: float = float(row['PriceOut'])
                     fees_out: float = float(row['FeesOut'])
                     m2m_price: float = 0
@@ -90,7 +90,7 @@ def read_trade_csv_list() -> ProfitLossData | None:
 # - daily/weekly/monthly/yearly used capital, per strategy as well as corresponding profit/loss and %age return.
 #
 # so that:
-# - I can import this into Excel and create graphs / reports etc to see how my strategies are performing.
+# - I can import this into Excel and create graphs / reports etc. to see how my strategies are performing.
 # - I can create a total (all strategy) performance graph, grouped by period.
 # - I can break that down by strategy.
 # - I can do histograms of %age return over time periods, per strategy.
