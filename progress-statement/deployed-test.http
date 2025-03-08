@@ -1,0 +1,6 @@
+GET http://localhost:5050/PeriodPerformance.csv?period=week
+Accept: text/csv
+
+###
+GET http://localhost:5050/OrderClerkTrades.csv
+Accept: text/csv

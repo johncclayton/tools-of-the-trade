@@ -95,7 +95,8 @@ def read_trade_csv_list() -> ProfitLossData | None:
 # - I can break that down by strategy.
 # - I can do histograms of %age return over time periods, per strategy.
 #
-# actually the time roll up should be a parameter, so that the user can choose daily/weekly/monthly/yearly.
+# This function serves the period performance data as a CSV file.
+# The user can specify the period type (daily/weekly/monthly/yearly) via a query parameter.
 @app.route('/PeriodPerformance.csv')
 def serve_period_performance_data():
     profit_loss_data = read_trade_csv_list()

@@ -16,17 +16,29 @@ where to throw the output - something like this:
 ```ini
 [paths]
 input_dir=C:\Users\johnc\OneDrive - Effective Flow\Trading\RT\Env_LiveTrading\OrderClerk
-output_dir=C:\Users\johnc\OneDrive - Effective Flow\Trading\RT\Env_LiveTrading\Reporting
+deployment_dir=C:\Users\johnc\OneDrive - Effective Flow\Trading\RT\Env_LiveTrading\Reporting
+service_name=OrderClerkService
 ```
+
+## Default Values
+
+| Config Key       | Description                                            | Default Value   |
+|------------------|--------------------------------------------------------|-----------------|
+| `input_dir`      | The directory to find the OrderClerkTrades.csv file in | None            |
+| `deployment_dir` | A directory - where to deploy the Flask application    | None            |
+| `service_name`   | The name of the service (manually added)               | ServeOrderClerk |
 
 # Deployment
 
-Is locally, depending also on this .venv - this is because the code requires access to the norgate data service, which
-is in fact running on this machine.
+Deployment is to the local machine into another directory, as specified by the ``deployment_dir`` param in the 
+config.ini. 
 
-deploy-production.ps1 is a script that will copy the code to the production machine, and also take care of the service (which I created by hand)
+This also relies on a correcly set up python environment.  This can be created using the ``requirements.txt`` file.
 
-# Service
+The reason that this is a local deployment is because the system relies on Norgate data, which is only available on the
+local machine.
+
+# Service Installation (Manual Steps)
 
 I used nssm to install the service by hand.  
 
