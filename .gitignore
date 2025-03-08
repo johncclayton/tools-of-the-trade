@@ -169,3 +169,5 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+interactive-tradelist/config.ini
+progress-statement/config.ini
