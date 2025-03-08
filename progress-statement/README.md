@@ -33,9 +33,9 @@ service_name=OrderClerkService
 Deployment is to the local machine into another directory, as specified by the ``deployment_dir`` param in the 
 config.ini. 
 
-This also relies on a correcly set up python environment.  This can be created using the ``requirements.txt`` file.
+This also relies on a correctly set up python environment.  This can be created using the ``requirements.txt`` file.
 
-The reason that this is a local deployment is because the system relies on Norgate data, which is only available on the
+The reason that this is a local deployment is that the system relies on Norgate data, which is only available on the
 local machine.
 
 # Service Installation (Manual Steps)
