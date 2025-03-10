@@ -76,7 +76,7 @@ class PerformanceCSVGenerator:
                 row.Date,
                 row.Strategy,
                 row.PeriodType,
-                f"{row.NetPnL:.2f}"
-                f"{row.UsedCapital:.2f}"
+                str(row.NetPnL),
+                str(row.UsedCapital)
             ])
         return data
