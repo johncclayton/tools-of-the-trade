@@ -84,6 +84,11 @@ def read_trade_csv_list() -> ProfitLossData | None:
     return grouped_data
 
 
+@app.route('/CombinedPerformance.csv')
+def serve_combined_performance_data():
+    pass
+
+
 # I would like to see the %age return on Used Capital for a time unit (day/week/month).
 #
 # output:
